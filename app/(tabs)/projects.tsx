@@ -14,23 +14,24 @@ const initialProjects: Project[] = [
 ];
 
 export default function ProjectsScreen() {
-  const [projects, setProjects] = useState<Project[]>(initialProjects);
+  const [projects] = useState<Project[]>(initialProjects);
   const router = useRouter();
 
-const handleAddProject = () => {
-  router.push("/(tabs)/add-project");
-};
+  // Navigace na přidání nové stavby
+  const handleAddProject = () => {
+    router.push("add-project"); // Cíluje na /app/(tabs)/add-project.tsx
+  };
 
-const renderItem = ({ item }: { item: Project }) => (
-  <TouchableOpacity
-    style={styles.projectCard}
-    onPress={() => router.push(`/(tabs)/projects/${item.id}`)}
-  >
-    <Text style={styles.projectName}>{item.name}</Text>
-    <Text style={styles.projectAddress}>{item.address}</Text>
-  </TouchableOpacity>
-);
-
+  // Navigace na detail projektu
+  const renderItem = ({ item }: { item: Project }) => (
+    <TouchableOpacity
+      style={styles.projectCard}
+      onPress={() => router.push(`projects/${item.id}`)} // Cíluje na /app/(tabs)/projects/[id].tsx
+    >
+      <Text style={styles.projectName}>{item.name}</Text>
+      <Text style={styles.projectAddress}>{item.address}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
