@@ -1,7 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-// Pokud budeš chtít i Analytics, importuj takto:
-import { getAnalytics } from "firebase/analytics";
 
 // Tvůj (veřejný) Firebase config:
 const firebaseConfig = {
@@ -14,10 +12,8 @@ const firebaseConfig = {
   measurementId: "G-ZS6VPFE47S"
 };
 
-// Inicializace
+// Inicializace pouze tohle!
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const analytics = getAnalytics(app); // volitelně, pokud chceš používat Analytics
 
 export { auth };
-
