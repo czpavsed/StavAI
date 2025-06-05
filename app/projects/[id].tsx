@@ -14,7 +14,7 @@ export default function ProjectDetailScreen() {
       <Text>Adresa: (dynamicky z DB)</Text>
       <Button
         title="Přidat zápis do deníku"
-        onPress={() => router.push(`${id}/add-log`)} // Cíluje na /app/(tabs)/projects/[id]/add-log.tsx
+        onPress={() => router.push(`/projects/${id}/add-log`)}
       />
       {/* Seznam deníkových záznamů */}
     </View>

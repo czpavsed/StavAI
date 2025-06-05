@@ -14,7 +14,7 @@ export default function AddProjectScreen() {
       return;
     }
     // Zatím návrat do seznamu (budeš doplňovat později logiku ukládání)
-    router.replace("/(tabs)/projects");
+    router.replace("/projects");
   };
 
   return (

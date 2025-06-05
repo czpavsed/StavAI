@@ -13,7 +13,7 @@ export default function AddProjectScreen() {
       return;
     }
     // Později sem dej logiku pro uložení do databáze
-    router.replace("projects");
+    router.replace("/projects");
   };
 
   return (
