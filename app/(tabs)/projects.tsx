@@ -19,14 +19,14 @@ export default function ProjectsScreen() {
 
   // Navigace na přidání nové stavby
   const handleAddProject = () => {
-    router.push("add-project"); // Cíluje na /app/(tabs)/add-project.tsx
+    router.push("/add-project");
   };
 
   // Navigace na detail projektu
   const renderItem = ({ item }: { item: Project }) => (
     <TouchableOpacity
       style={styles.projectCard}
-      onPress={() => router.push(`projects/${item.id}`)} // Cíluje na /app/(tabs)/projects/[id].tsx
+      onPress={() => router.push(`/projects/${item.id}`)}
     >
       <Text style={styles.projectName}>{item.name}</Text>
       <Text style={styles.projectAddress}>{item.address}</Text>
