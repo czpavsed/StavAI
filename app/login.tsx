@@ -13,15 +13,18 @@ export default function LoginScreen() {
   const { setUser } = useAuth();
 
   const [request, response, promptAsync] = Google.useAuthRequest({
-    webClientId: "827993045726-84adk1l6nlenvb9um753tt72dcpqu6je.apps.googleusercontent.com", // Web client ID!
-    iosClientId: "827993045726-84adk1l6nlenvb9um753tt72dcpqu6je.apps.googleusercontent.com", // Pokud budeš buildit na iOS, přidáš
+    webClientId:
+      "827993045726-84adk1l6nlenvb9um753tt72dcpqu6je.apps.googleusercontent.com", // Web client ID!
+    iosClientId:
+      "827993045726-84adk1l6nlenvb9um753tt72dcpqu6je.apps.googleusercontent.com", // Pokud budeš buildit na iOS, přidáš
     // androidClientId: "", // Pokud budeš buildit na Android, přidáš
+    scopes: ["openid", "profile", "email"],
   });
 
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
-      const fetchInfo = async () => {
+      (async () => {
         try {
           const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
             headers: { Authorization: `Bearer ${authentication?.accessToken}` },
@@ -31,11 +34,10 @@ export default function LoginScreen() {
         } catch (e) {
           console.error(e);
         }
-      };
-      fetchInfo();
 
-      Alert.alert("Přihlášení proběhlo úspěšně!");
-      router.replace("/(tabs)");
+        Alert.alert("Přihlášení proběhlo úspěšně!");
+        router.replace("/(tabs)");
+      })();
     }
   }, [response, setUser, router]);
 
