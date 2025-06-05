@@ -4,10 +4,13 @@ import * as WebBrowser from "expo-web-browser";
 import React, { useEffect } from "react";
 import { Alert, Button, Text, View } from "react-native";
 
+import { useAuth } from "@/contexts/AuthContext";
+
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
   const router = useRouter();
+  const { setUser } = useAuth();
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     webClientId: "827993045726-84adk1l6nlenvb9um753tt72dcpqu6je.apps.googleusercontent.com", // Web client ID!
@@ -18,12 +21,23 @@ export default function LoginScreen() {
   useEffect(() => {
     if (response?.type === "success") {
       const { authentication } = response;
-      // authentication.accessToken, authentication.idToken
+      const fetchInfo = async () => {
+        try {
+          const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+            headers: { Authorization: `Bearer ${authentication?.accessToken}` },
+          });
+          const info = await res.json();
+          setUser({ name: info.name, email: info.email, picture: info.picture });
+        } catch (e) {
+          console.error(e);
+        }
+      };
+      fetchInfo();
+
       Alert.alert("Přihlášení proběhlo úspěšně!");
-      // Zde si můžeš uložit uživatele, nebo zavolat svoje API, nebo přesměrovat:
       router.replace("/(tabs)");
     }
-  }, [response]);
+  }, [response, setUser, router]);
 
   return (
     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
